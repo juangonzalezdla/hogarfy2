@@ -1,9 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import {
-  registerRequest,
-  loginRequest,
-  verifyTokenRequest,
-} from "../api/requests.js";
+import { registerRequest, loginRequest, verifyTokenRequest } from "../api/requests.js";
 import Cookies from "js-cookie";
 
 export const AuthContext = createContext();
@@ -18,6 +14,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
+  const [isAuthorized, setIsAuthorized] = useState(false);
   const [errorsMessage, setErrorsMessage] = useState([]);
   const [successMessage, setSuccessMessage] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -79,6 +76,9 @@ export const AuthProvider = ({ children }) => {
         console.log(res);
         if (!res.data) return setIsAuthenticated(false);
         setIsAuthenticated(true);
+        if (res.data.roles.admin === true) {
+          setIsAuthorized(true);
+        }
         setUser(res.data);
         setLoading(false);
       } catch (error) {
@@ -98,6 +98,7 @@ export const AuthProvider = ({ children }) => {
         logout,
         isRegistered,
         isAuthenticated,
+        isAuthorized,
         successMessage,
         errorsMessage,
         loading,

@@ -10,12 +10,18 @@ import SuccessMessage from '../components/form/SuccessMessage';
 
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../context/AuthContext.jsx';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { userLoginSchema } from '../schemas/user.js';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 function LoginPage() {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   useEffect(() => {
     document.title = 'Iniciar sesión | Hogarfy';
   }, []);
@@ -70,14 +76,28 @@ function LoginPage() {
                 <p className='text-red-500 font-semibold ml-2'>{errors.email?.message}</p>
               )}
 
-              <Input 
-                type="password"
-                placeholder='Contraseña'
-                id='password'
-                {...register('password')}
-              />
+              <div className="relative">
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Contraseña"
+                  {...register("password")}
+                />
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="absolute right-4 top-2/3 transform -translate-y-1/2 bg-transparent border-none"
+                >
+                  {showPassword ? (
+                    <i className='bx bxs-hide text-azul bx-sm'></i>
+                  ) : (
+                    <i className='bx bxs-show text-azul bx-sm'></i>
+                  )}
+                </button>
+              </div>
               {errors.password?.message && (
-                <p className='text-red-500 font-semibold ml-2'>{errors.password?.message}</p>
+                <p className="text-red-500 font-semibold ml-2">
+                  {errors.password?.message}
+                </p>
               )}
             </div>
 

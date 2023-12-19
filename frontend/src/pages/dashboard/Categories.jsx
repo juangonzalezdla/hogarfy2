@@ -5,14 +5,18 @@ import { HiOutlineExclamationCircle } from "react-icons/hi";
 
 import { useCategory } from "../../context/CategoryContext.jsx";
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 
 function Categories() {
   const { categories, getCategories, createCategory, updateCategory, deleteCategory } = useCategory();
-  const { register, handleSubmit, setValue, reset } = useForm();
+  const { register, handleSubmit, setValue, reset, control } = useForm();
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [showEditCategory, setShowEditCategory] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "properties",
+  });
 
   useEffect(() => {
     document.title = "Dashboard | Categorias";
@@ -24,9 +28,14 @@ function Categories() {
     setShowEditCategory(true);
     setValue("name", category.name);
     setValue("parent", category.parent ? category.parent._id : "");
+    setValue("properties", category.properties);
   };
 
   const onSubmit = async (data) => {
+    data.properties.forEach((property) => {
+      property.values = property.values.split(",").map((value) => value.trim());
+    });
+
     if (selectedCategory) {
       data._id = selectedCategory._id;
       await updateCategory(data);
@@ -52,9 +61,10 @@ function Categories() {
             <div className="mb-2 block">
               <Label
                 htmlFor="name"
-                value={showEditCategory
-                  ? `Editar categoria ${selectedCategory.name}`
-                  : "Nueva categoria"
+                value={
+                  showEditCategory
+                    ? `Editar categoria ${selectedCategory.name}`
+                    : "Nueva categoria"
                 }
               />
             </div>
@@ -80,11 +90,35 @@ function Categories() {
               ))}
             </Select>
           </div>
-
-          <Button type="submit" color="blue">
-            Guardar
-          </Button>
         </div>
+
+        <div className="mb-5">
+          <Label value="Propiedades"></Label>
+          <Button
+            onClick={() => append({ name: "", values: "" })}
+            type="button"
+          >
+            Agregar nueva propiedad
+          </Button>
+          {fields.map((field, index) => (
+            <div key={field.id} className="flex justify-start items-end gap-2 mt-3">
+              <div>
+                <Label htmlFor={`properties[${index}].name`}>Nombre</Label>
+                <TextInput {...register(`properties[${index}].name`)} />
+              </div>
+              <div>
+                <Label htmlFor={`properties[${index}].values`}>Valores</Label>
+                <TextInput {...register(`properties[${index}].values`)} />
+              </div>
+              <Button onClick={() => remove(index)} type="button" color="failure">
+                Eliminar
+              </Button>
+            </div>
+          ))}
+        </div>
+        <Button type="submit" color="blue" className="mb-3">
+          Guardar
+        </Button>
       </form>
 
       <Table striped>
@@ -97,6 +131,7 @@ function Categories() {
           </Table.HeadCell>
           <Table.HeadCell className="bg-azul"></Table.HeadCell>
         </Table.Head>
+
         <Table.Body className="divide-y">
           {categories.map((category) => (
             <Table.Row key={category._id} className="bg-white">
@@ -136,7 +171,12 @@ function Categories() {
         </Table.Body>
       </Table>
 
-      <Modal show={openModal} size="md" onClose={() => setOpenModal(false)} popup>
+      <Modal
+        onClose={() => setOpenModal(false)}
+        show={openModal}
+        size="md"
+        popup
+      >
         <Modal.Header />
         <Modal.Body>
           <div className="text-center">
@@ -146,15 +186,15 @@ function Categories() {
             </h3>
             <div className="flex justify-center gap-4">
               <Button
-                color="failure"
                 onClick={() => {
                   deleteCategory(selectedCategory._id);
                   setOpenModal(false);
                 }}
+                color="failure"
               >
                 Si, Estoy seguro
               </Button>
-              <Button color="gray" onClick={() => setOpenModal(false)}>
+              <Button onClick={() => setOpenModal(false)} color="gray">
                 No, cancelar
               </Button>
             </div>

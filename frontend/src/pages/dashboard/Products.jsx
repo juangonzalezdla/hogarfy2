@@ -1,37 +1,20 @@
 import DashboardLayout from "./DashboardLayout.jsx";
-import {
-  Table,
-  Button,
-  Modal,
-  Label,
-  TextInput,
-  Textarea,
-  Dropdown,
-} from "flowbite-react";
+import { Table, Button, Modal, Dropdown } from "flowbite-react";
 import { Toaster } from "react-hot-toast";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 
-import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
 import { useProduct } from "../../context/ProductContext.jsx";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { createProductSchema } from "../../schemas/product.js";
 
 function Products() {
   const { products, getProducts, createProduct, deleteProduct } = useProduct();
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [openModalCreate, setOpenModalCreate] = useState();
   const [openModalDelete, setOpenModalDelete] = useState();
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
-
+  const { reset } = useForm();
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  
   useEffect(() => {
     document.title = "Dashboard | Productos";
     getProducts();
@@ -41,12 +24,24 @@ function Products() {
     setSelectedProduct(product);
   };
 
+  const handleCategory = (category) => {
+    setSelectedCategory(category);
+  };
+
   const onSubmit = async (data) => {
-    console.log(data);
+    if (!selectedCategory) {
+      console.error("No se ha seleccionado una categoría");
+      return;
+    }
+    const productProperties = {};
+    selectedCategory.properties.forEach((property) => {
+      productProperties[property.name] = data.properties[property.name];
+    });
+    data.properties = productProperties;
+    data.category = selectedCategory._id;
     await createProduct(data);
     getProducts();
     reset();
-    setOpenModalCreate();
   };
 
   return (
@@ -55,74 +50,15 @@ function Products() {
       <h1 className="text-azul font-poppins text-xl font-bold mb-5 text-center">
         Productos
       </h1>
-
-      <Button
-        color="blue"
-        className="flex items-center justify-center mb-5"
-        onClick={() => setOpenModalCreate("form-elements")}
-      >
-        <i className="bx bx-plus text-[20px] mr-1"></i>
-        Agregar producto
-      </Button>
-
-      <Modal
-        size="xl"
-        show={openModalCreate === "form-elements"}
-        onClose={() => setOpenModalCreate()}
-      >
-        <Modal.Header>Agregar producto</Modal.Header>
-        <Modal.Body>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="mb-5">
-              <Label
-                htmlFor="name" value="Nombre" className="mb-2 block cursor-pointer" />
-              <TextInput
-                id="name"
-                placeholder="Nombre de producto"
-                type="text"
-                {...register("name")}
-              />
-            </div>
-
-            <div className="mb-5">
-              <Label htmlFor="brand" value="Marca" className="mb-2 block" />
-              <TextInput
-                id="brand"
-                placeholder="Marca del producto"
-                type="text"
-                {...register("brand")}
-              />
-            </div>
-
-            <div className="mb-5">
-              <Label htmlFor="price" value="Precio" className="mb-2 block" />
-              <TextInput
-                id="price"
-                placeholder="Precio"
-                type="number"
-                {...register("price")}
-              />
-            </div>
-
-            <div className="mb-5">
-              <Label htmlFor="description" value="Descricion" className="mb-2 block" />
-              <Textarea
-                id="description"
-                placeholder="Descripcion del producto..."
-                type="text"
-                maxLength="200"
-                rows={4}
-                className="resize-none"
-                {...register("description")}
-              />
-            </div>
-
-            <Button className="mt-6" type="submit" color="blue">
-              Agregar nuevo producto
-            </Button>
-          </form>
-        </Modal.Body>
-      </Modal>
+      <Link to={'/dashboard/products/new'}>
+        <Button
+          color="blue"
+          className="flex items-center justify-center mb-5"
+        >
+          <i className="bx bx-plus text-[20px] mr-1"></i>
+          Agregar producto
+        </Button>
+      </Link>
 
       <Table striped>
         <Table.Head>

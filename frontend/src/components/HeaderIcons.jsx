@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 function HeaderIcons() {
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, isAuthorized, logout } = useAuth();
   const { getUser, userData } = useUser();
   const [show, setShow] = useState(false);
 
@@ -14,10 +14,10 @@ function HeaderIcons() {
   };
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && isAuthorized) {
       getUser(); 
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, isAuthorized]);
 
   return (
     <>
@@ -68,18 +68,27 @@ function HeaderIcons() {
 
           <Link
             to={`/u/account/${userData._id}`}
-            className="flex justify-center items-center gap-2 text-lg text-gris-oscuro font-medium p-2 rounded-lg hover:bg-gris-claro"
+            className="flex justify-start items-center gap-2 text-lg text-gris-oscuro font-medium p-2 rounded-lg hover:bg-gris-claro"
           >
             <i className="bx bx-cog text-2xl"></i>
             Mi cuenta
           </Link>
+          {isAuthorized && (
+            <Link 
+              to={'/dashboard'}
+              className="flex justify-start items-center gap-2 text-lg text-gris-oscuro font-medium p-2 rounded-lg hover:bg-gris-claro"
+            >
+              <i className="bx bxs-dashboard text-2xl"></i>
+              Dashboard
+            </Link>
+          )}
           <hr />
           <Link
             to="/auth/login"
             onClick={() => {
               logout();
             }}
-            className="flex justify-center items-center gap-2 text-lg text-red-700 font-semibold p-2 rounded-lg hover:bg-red-100"
+            className="flex justify-start items-center gap-2 text-lg text-red-700 font-semibold p-2 rounded-lg hover:bg-red-100"
           >
             <i className="bx bx-log-out text-red-700 text-2xl"></i>
             Cerrar sesión

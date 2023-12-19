@@ -20,6 +20,7 @@ import TerminosCondiciones from "./pages/legal/TerminosCondiciones.jsx";
 import Privacidad from "./pages/legal/Privacidad.jsx";
 import Dashboard from "./pages/dashboard/Dashboard.jsx";
 import Products from "./pages/dashboard/Products.jsx";
+import NewProduct from "./pages/dashboard/NewProduct.jsx";
 import EditProduct from "./pages/dashboard/EditProduct.jsx";
 import Categories from "./pages/dashboard/Categories.jsx";
 import Orders from "./pages/dashboard/Orders.jsx";
@@ -48,6 +49,7 @@ function App() {
                   <Route path="/u/account/delete/:id" element={<DeleteAccount />} />
                   <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/dashboard/products" element={<Products />} />
+                  <Route path="/dashboard/products/new" element={<NewProduct />} />
                   <Route path="/dashboard/products/edit/:id" element={<EditProduct />} />
                   <Route path="/dashboard/categories" element={<Categories />} />
                   <Route path="/dashboard/orders" element={<Orders />} />

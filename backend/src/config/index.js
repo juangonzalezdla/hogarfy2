@@ -7,24 +7,19 @@ import productRouter from '../routes/products.routes.js';
 import categoryRouter from '../routes/categories.routes.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors'
-import { v2 as cloudinary } from 'cloudinary';
 
 dotenv.config(); // Configuración de las variables de entorno
 
 const app = express();
 const PORT = process.env.PORT;
 const FRONTEND_URL = process.env.FRONTEND_URL;
+const FRONTEND_DASHBOARD_URL = process.env.FRONTEND_DASHBOARD_URL;
 
 // Middlewares
 app.use(cors({
-  origin: FRONTEND_URL,
+  origin: [FRONTEND_URL, FRONTEND_DASHBOARD_URL],
   credentials: true
 }));
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
 app.use(express.json());
 app.use(cookieParser());
 

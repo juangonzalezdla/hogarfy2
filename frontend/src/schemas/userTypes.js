@@ -2,8 +2,10 @@ import { z } from 'zod';
 
 export const cedulaDTOSchema = z
   .string()
-  .length(10, 
-    { message: 'Cedula debe tener 10 numeros de longitud' }
+  .min(2, 
+    { message: 'Mínimo 8 números de longitud' })
+  .max(20, 
+    { message: 'Máximo 10 números de longitud' }
   );
 
 export const nameDTOSchema = z
