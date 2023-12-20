@@ -6,7 +6,7 @@ export function ProtectedRoute() {
 
   if (loading) return <h1>Loading...</h1>;
   if (!isAuthenticated && !loading)
-    return <Navigate to="/" replace />;
+    return <Navigate to="/auth/login" replace />;
 
   return <Outlet />;
 }
@@ -16,7 +16,7 @@ export function ProtectedRouteDashboard() {
 
   if (loading) return <h1>Loading...</h1>;
   if (!isAuthorized && !loading)
-    return <Navigate to="/" replace />;
+    return <Navigate to="/auth/login" replace />;
 
   return <Outlet />;
 }
