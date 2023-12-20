@@ -31,7 +31,7 @@ function HomePage() {
       ) : (
         <div>HomePage</div>
       )}
-      <div className="w-full max-w-[1400px] my-0 mx-auto h-80 px-12">
+      <div className="w-full max-w-[1400px] my-0 mx-auto h-80 px-12 max-md:px-3">
         <Carousel>
           <img src="https://i.postimg.cc/RJN1j2GZ/imagen1.jpg" alt="..." />
           <img src="https://flowbite.com/docs/images/carousel/carousel-2.svg" alt="..." />

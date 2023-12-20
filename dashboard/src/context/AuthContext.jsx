@@ -12,6 +12,7 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [errorsMessage, setErrorsMessage] = useState([]);
   const [successMessage, setSuccessMessage] = useState([]);
@@ -33,9 +34,7 @@ export const AuthProvider = ({ children }) => {
       const res = await loginRequest(user);
       console.log(res.data.message);
       setUser(res.data);
-      if (res.data.roles.admin === true) {
-        setIsAuthorized(true);
-      }
+      setIsAuthenticated(true);
       setSuccessMessage(res.data.message);
     } catch (error) {
       console.log(error.response.data);
@@ -46,14 +45,14 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     Cookies.remove("token");
     setUser(null);
-    setIsAuthorized(false);
+    setIsAuthenticated(false);
   };
 
   useEffect(() => {
     const checkLogin = async () => {
       const cookies = Cookies.get();
       if (!cookies.token) {
-        setIsAuthorized(false);
+        setIsAuthenticated(false);
         setLoading(false);
         return;
       }
@@ -61,14 +60,15 @@ export const AuthProvider = ({ children }) => {
       try {
         const res = await verifyTokenRequest(cookies.token);
         console.log(res);
-        if (!res.data) return setIsAuthorized(false);
+        if (!res.data) return setIsAuthenticated(false);
+        setIsAuthenticated(true);
         if (res.data.roles.admin === true) {
           setIsAuthorized(true);
         }
         setUser(res.data);
         setLoading(false);
       } catch (error) {
-        setIsAuthorized(false);
+        setIsAuthenticated(false);
         setLoading(false);
       }
     };
@@ -81,6 +81,7 @@ export const AuthProvider = ({ children }) => {
         user,
         signin,
         logout,
+        isAuthenticated,
         isAuthorized,
         successMessage,
         errorsMessage,

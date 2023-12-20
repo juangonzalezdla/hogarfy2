@@ -3,7 +3,7 @@ import { AuthProvider } from "./context/AuthContext.jsx";
 import { UserProvider } from "./context/UserContext.jsx";
 import { CategoryProvider } from "./context/CategoryContext.jsx";
 import { ProductProvider } from "./context/ProductContext.jsx";
-import ProtectedRoute from "./ProtectedRoute.jsx";
+import { ProtectedRoute } from "./ProtectedRoutes.jsx";
 
 import HomePage from "./pages/HomePage.jsx";
 import OrdersPage from "./pages/OrdersPage.jsx";
@@ -18,12 +18,6 @@ import SobreNosotros from "./pages/legal/SobreNosotros.jsx";
 import PreguntasFrecuentes from "./pages/legal/PreguntasFrecuentes.jsx";
 import TerminosCondiciones from "./pages/legal/TerminosCondiciones.jsx";
 import Privacidad from "./pages/legal/Privacidad.jsx";
-import Dashboard from "./pages/dashboard/Dashboard.jsx";
-import Products from "./pages/dashboard/Products.jsx";
-import NewProduct from "./pages/dashboard/NewProduct.jsx";
-import EditProduct from "./pages/dashboard/EditProduct.jsx";
-import Categories from "./pages/dashboard/Categories.jsx";
-import Orders from "./pages/dashboard/Orders.jsx";
 
 function App() {
   return (
@@ -47,12 +41,6 @@ function App() {
                   <Route path="/u/account/update-email/:id" element={<UpdateEmail />} />
                   <Route path="/u/account/update-password/:id" element={<UpdatePassword />} />
                   <Route path="/u/account/delete/:id" element={<DeleteAccount />} />
-                  <Route path="/dashboard" element={<Dashboard />} />
-                  <Route path="/dashboard/products" element={<Products />} />
-                  <Route path="/dashboard/products/new" element={<NewProduct />} />
-                  <Route path="/dashboard/products/edit/:id" element={<EditProduct />} />
-                  <Route path="/dashboard/categories" element={<Categories />} />
-                  <Route path="/dashboard/orders" element={<Orders />} />
                 </Route>
               </Routes>
             </BrowserRouter>

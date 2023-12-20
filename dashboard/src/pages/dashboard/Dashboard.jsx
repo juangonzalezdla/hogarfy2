@@ -1,17 +1,13 @@
 import { useEffect } from 'react';
-import { useUser } from '../../context/UserContext.jsx';
+import { useAuth } from '../../context/AuthContext.jsx';
 import DashboardLayout from './DashboardLayout.jsx';
 
 function Dashboard() {
-  const { getUser, userData } = useUser();
-
-  useEffect(() => {
-    getUser();
-  }, []);
+  const { user } = useAuth();
 
   return (
     <DashboardLayout>
-      <div>hola admin, {userData?.email}</div>
+      <div>hola admin, {user.email}</div>
 
     </DashboardLayout>
   )
