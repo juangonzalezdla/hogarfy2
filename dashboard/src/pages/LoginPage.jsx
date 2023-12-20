@@ -41,7 +41,7 @@ function LoginPage() {
   useEffect(() => {
     if (isAuthenticated) {
       const timer = setTimeout(() => {
-        navigate('/dashboard');
+        navigate('/');
       }, 3000);
       return () => clearTimeout(timer);
     }

@@ -19,16 +19,15 @@ function App() {
         <ProductProvider>
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Navigate to="/auth/login" />} />
               <Route path="/auth/login" element={<LoginPage />} />
               <Route element={<ProtectedRoute />}>
                 <Route element={<ProtectedRouteDashboard />}>
-                  <Route path="/dashboard" element={<Dashboard />} />
-                  <Route path="/dashboard/products" element={<Products />} />
-                  <Route path="/dashboard/products/new" element={<NewProduct />} />
-                  <Route path="/dashboard/products/edit/:id" element={<EditProduct />} />
-                  <Route path="/dashboard/categories" element={<Categories />} />
-                  <Route path="/dashboard/orders" element={<Orders />} />
+                  <Route path="/" element={<Dashboard />} />
+                  <Route path="/products" element={<Products />} />
+                  <Route path="/products/new" element={<NewProduct />} />
+                  <Route path="/products/edit/:id" element={<EditProduct />} />
+                  <Route path="/categories" element={<Categories />} />
+                  <Route path="/orders" element={<Orders />} />
                 </Route>
               </Route>
             </Routes>

@@ -75,7 +75,8 @@ function HeaderIcons() {
           </Link>
           {isAuthorized && (
             <Link 
-              to={'/dashboard'}
+              to={'https://dashboard-hogarfy.onrender.com'}
+              target="_blank"
               className="flex justify-start items-center gap-2 text-lg text-gris-oscuro font-medium p-2 rounded-lg hover:bg-gris-claro"
             >
               <i className="bx bxs-dashboard text-2xl"></i>

@@ -1,22 +1,22 @@
 import axios from 'axios';
 
 const authAxios = axios.create({
-  baseURL: `${import.meta.env.VITE_BACKEND_URL}/api/auth`,
+  baseURL: `http://localhost:5174/api/auth`,
   withCredentials: true
 });
 
 const productAxios = axios.create({
-  baseURL: `${import.meta.env.VITE_BACKEND_URL}/api/product`,
+  baseURL: `http://localhost:5174/api/product`,
   withCredentials: true
 });
 
 const categoryAxios = axios.create({
-  baseURL: `${import.meta.env.VITE_BACKEND_URL}/api/category`,
+  baseURL: `http://localhost:5174/api/category`,
   withCredentials: true
 });
 
 const orderAxios = axios.create({
-  baseURL: `${import.meta.env.VITE_BACKEND_URL}/api/order`,
+  baseURL: `http://localhost:5174/api/order`,
   withCredentials: true
 });
 
