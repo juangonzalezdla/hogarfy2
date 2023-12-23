@@ -51,12 +51,12 @@ function Categories() {
   return (
     <DashboardLayout>
       <Toaster />
-      <h1 className="text-azul font-poppins text-xl font-bold mb-5 text-center">
+      <h1 className="text-azul font-poppins text-lg font-bold mb-5">
         Categorias
       </h1>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="w-[700px]] flex items-end gap-5 mb-5">
+        <div className="w-full flex flex-wrap gap-5 mb-5">
           <div className="max-w-[250px]">
             <div className="mb-2 block">
               <Label
@@ -101,7 +101,10 @@ function Categories() {
             Agregar nueva propiedad
           </Button>
           {fields.map((field, index) => (
-            <div key={field.id} className="flex justify-start items-end gap-2 mt-3">
+            <div
+              key={field.id}
+              className="flex justify-start items-end gap-2 mt-3"
+            >
               <div>
                 <Label htmlFor={`properties[${index}].name`}>Nombre</Label>
                 <TextInput {...register(`properties[${index}].name`)} />
@@ -110,66 +113,90 @@ function Categories() {
                 <Label htmlFor={`properties[${index}].values`}>Valores</Label>
                 <TextInput {...register(`properties[${index}].values`)} />
               </div>
-              <Button onClick={() => remove(index)} type="button" color="failure">
+              <Button
+                onClick={() => remove(index)}
+                type="button"
+                color="failure"
+              >
                 Eliminar
               </Button>
             </div>
           ))}
         </div>
-        <Button type="submit" color="blue" className="mb-3">
-          Guardar
-        </Button>
+
+        <div className="flex gap-3 items-start">
+          <Button type="submit" color="blue" className="mb-3">
+            Guardar
+          </Button>
+          {selectedCategory && (
+            <Button
+              onClick={() => {
+                setSelectedCategory(null);
+                setShowEditCategory(false);
+                reset();
+              }}
+              type="button"
+              color="gray"
+            >
+              Cancelar
+            </Button>
+          )}
+        </div>
       </form>
 
-      <Table striped>
-        <Table.Head>
-          <Table.HeadCell className="bg-azul text-white">
-            Nombre categoria
-          </Table.HeadCell>
-          <Table.HeadCell className="bg-azul text-white">
-            Categoria padre
-          </Table.HeadCell>
-          <Table.HeadCell className="bg-azul"></Table.HeadCell>
-        </Table.Head>
+      {!selectedCategory && (
+        <Table striped>
+          <Table.Head>
+            <Table.HeadCell className="bg-azul text-white px-3 py-4">
+              Nombre categoria
+            </Table.HeadCell>
+            <Table.HeadCell className="bg-azul text-white px-3 py-4">
+              Categoria padre
+            </Table.HeadCell>
+            <Table.HeadCell className="bg-azul px-3 py-4"></Table.HeadCell>
+          </Table.Head>
 
-        <Table.Body className="divide-y">
-          {categories.map((category) => (
-            <Table.Row key={category._id} className="bg-white">
-              <Table.Cell className="font-medium text-gray-900">
-                {category.name}
-              </Table.Cell>
-              <Table.Cell>{category?.parent?.name}</Table.Cell>
-              <Table.Cell>
-                <Dropdown
-                  renderTrigger={() => (
-                    <i className="bx bx-dots-horizontal-rounded text-[25px] cursor-pointer p-2 rounded-full hover:text-gray-800 hover:bg-gris-claro"></i>
-                  )}
-                  className="p-2 rounded-md"
-                >
-                  <Dropdown.Item
-                    onClick={() => handleCategory(category)}
-                    className="text-base font-medium rounded-md flex items-center gap-2"
+          <Table.Body className="divide-y">
+            {categories.map((category) => (
+              <Table.Row key={category._id} className="bg-white">
+                <Table.Cell className="font-medium text-gray-900 px-3 py-4">
+                  {category.name}
+                </Table.Cell>
+                <Table.Cell className="px-3 py-4">
+                  {category?.parent?.name}
+                </Table.Cell>
+                <Table.Cell className="px-3 py-4">
+                  <Dropdown
+                    renderTrigger={() => (
+                      <i className="bx bx-dots-horizontal-rounded text-[25px] cursor-pointer p-2 rounded-full hover:text-gray-800 hover:bg-gris-claro"></i>
+                    )}
+                    className="p-2 rounded-md"
                   >
-                    <i className="bx bx-edit text-[20px]"></i>
-                    Editar
-                  </Dropdown.Item>
-                  <Dropdown.Divider />
-                  <Dropdown.Item
-                    onClick={() => {
-                      handleCategory(category);
-                      setOpenModal(true);
-                    }}
-                    className="text-base text-red-700 font-medium rounded-md flex items-center gap-2"
-                  >
-                    <i className="bx bxs-trash text-[20px]"></i>
-                    Eliminar
-                  </Dropdown.Item>
-                </Dropdown>
-              </Table.Cell>
-            </Table.Row>
-          ))}
-        </Table.Body>
-      </Table>
+                    <Dropdown.Item
+                      onClick={() => handleCategory(category)}
+                      className="text-base font-medium rounded-md flex items-center gap-2"
+                    >
+                      <i className="bx bx-edit text-[20px]"></i>
+                      Editar
+                    </Dropdown.Item>
+                    <Dropdown.Divider />
+                    <Dropdown.Item
+                      onClick={() => {
+                        handleCategory(category);
+                        setOpenModal(true);
+                      }}
+                      className="text-base text-red-700 font-medium rounded-md flex items-center gap-2"
+                    >
+                      <i className="bx bxs-trash text-[20px]"></i>
+                      Eliminar
+                    </Dropdown.Item>
+                  </Dropdown>
+                </Table.Cell>
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table>
+      )}
 
       <Modal
         onClose={() => setOpenModal(false)}

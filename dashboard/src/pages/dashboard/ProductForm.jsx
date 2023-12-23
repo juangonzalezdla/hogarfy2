@@ -92,7 +92,7 @@ function ProductForm() {
     }
   };
 
-  if (goToProducts) navigate("/dashboard/products");
+  if (goToProducts) navigate("/products");
 
   return (
     <>
@@ -205,9 +205,9 @@ function ProductForm() {
 
           <div className="flex gap-3">
             <Button type="submit" color="blue">
-              Guardar producto
+              Guardar
             </Button>
-            <Link to={'/dashboard/products'}>
+            <Link to={'/products'}>
               <Button color="gray">
                 Cancelar
               </Button>

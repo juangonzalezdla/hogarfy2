@@ -10,13 +10,3 @@ export function ProtectedRoute() {
 
   return <Outlet />;
 }
-
-export function ProtectedRouteDashboard() {
-  const { loading, isAuthorized } = useAuth();
-
-  if (loading) return <h1>Loading...</h1>;
-  if (!isAuthorized && !loading)
-    return <Navigate to="/" replace />;
-
-  return <Outlet />;
-}

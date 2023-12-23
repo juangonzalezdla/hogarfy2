@@ -47,10 +47,10 @@ function Products() {
   return (
     <DashboardLayout>
       <Toaster />
-      <h1 className="text-azul font-poppins text-xl font-bold mb-5 text-center">
+      <h1 className="text-azul font-poppins text-lg font-bold mb-5">
         Productos
       </h1>
-      <Link to={'/dashboard/products/new'}>
+      <Link to={'/products/new'}>
         <Button
           color="blue"
           className="flex items-center justify-center mb-5"
@@ -62,14 +62,10 @@ function Products() {
 
       <Table striped>
         <Table.Head>
-          <Table.HeadCell className="bg-azul text-white">
-            Nombre producto
-          </Table.HeadCell>
-          <Table.HeadCell className="bg-azul text-white">Marca</Table.HeadCell>
-          <Table.HeadCell className="bg-azul text-white">
-            Categoria
-          </Table.HeadCell>
-          <Table.HeadCell className="bg-azul text-white">precio</Table.HeadCell>
+          <Table.HeadCell className="bg-azul text-white">Nombre producto</Table.HeadCell>
+          <Table.HeadCell className="bg-azul text-white max-md:hidden">Marca</Table.HeadCell>
+          <Table.HeadCell className="bg-azul text-white max-md:hidden">Categoria</Table.HeadCell>
+          <Table.HeadCell className="bg-azul text-white max-md:hidden">precio</Table.HeadCell>
           <Table.HeadCell className="bg-azul"></Table.HeadCell>
         </Table.Head>
 
@@ -79,12 +75,10 @@ function Products() {
               key={product._id}
               className="bg-white dark:border-gray-700 dark:bg-gray-800"
             >
-              <Table.Cell className="font-medium text-gray-900">
-                {product.name}
-              </Table.Cell>
-              <Table.Cell>{product.brand}</Table.Cell>
-              <Table.Cell>{product?.category?.name}</Table.Cell>
-              <Table.Cell>{product.price}</Table.Cell>
+              <Table.Cell className="font-medium text-gray-900">{product.name}</Table.Cell>
+              <Table.Cell className="max-md:hidden">{product.brand}</Table.Cell>
+              <Table.Cell className="max-md:hidden">{product?.category?.name}</Table.Cell>
+              <Table.Cell className="max-md:hidden">{product.price}</Table.Cell>
               <Table.Cell>
                 <Dropdown
                   renderTrigger={() => (
@@ -92,7 +86,7 @@ function Products() {
                   )}
                   className="p-2 rounded-md"
                 >
-                  <Link to={`/dashboard/products/edit/${product._id}`}>
+                  <Link to={`/products/edit/${product._id}`}>
                     <Dropdown.Item className="text-base font-medium rounded-md flex items-center gap-2">
                       <i className="bx bx-edit text-[20px]"></i>
                       Editar

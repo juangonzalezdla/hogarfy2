@@ -6,7 +6,7 @@ function NewProduct() {
   return (
     <DashboardLayout>
       <Toaster />
-      <h1 className="text-azul font-poppins text-xl font-bold mb-5 text-center">
+      <h1 className="text-azul font-poppins text-lg font-bold mb-5">
         Nuevo producto
       </h1>
       <ProductForm />
