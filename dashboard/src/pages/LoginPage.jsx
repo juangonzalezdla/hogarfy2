@@ -16,6 +16,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const { signin, successMessage, errorsMessage, isAuthenticated, isAuthorized } = useAuth();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -33,10 +34,9 @@ function LoginPage() {
     resolver: zodResolver(userLoginSchema)
   });
 
-  const { signin, successMessage, errorsMessage, isAuthenticated, isAuthorized } = useAuth();
-  const navigate = useNavigate();
-
   const onSubmit = async (data) => await signin(data);
+  
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isAuthenticated) {

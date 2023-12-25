@@ -1,4 +1,4 @@
-import DashboardLayout from './DashboardLayout.jsx';
+import DashboardLayout from '../../components/DashboardLayout.jsx';
 
 function Orders() {
   return (

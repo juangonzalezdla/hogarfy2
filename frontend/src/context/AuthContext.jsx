@@ -13,8 +13,6 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isRegistered, setIsRegistered] = useState(false);
-  const [isAuthorized, setIsAuthorized] = useState(false);
   const [errorsMessage, setErrorsMessage] = useState([]);
   const [successMessage, setSuccessMessage] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -35,7 +33,6 @@ export const AuthProvider = ({ children }) => {
       const res = await registerRequest(user);
       console.log(res.data.message);
       setUser(res.data);
-      setIsRegistered(true);
       setSuccessMessage(res.data.message);
     } catch (error) {
       console.log(error.response.data);
@@ -76,9 +73,6 @@ export const AuthProvider = ({ children }) => {
         console.log(res);
         if (!res.data) return setIsAuthenticated(false);
         setIsAuthenticated(true);
-        if (res.data.roles.admin === true) {
-          setIsAuthorized(true);
-        }
         setUser(res.data);
         setLoading(false);
       } catch (error) {
@@ -96,9 +90,7 @@ export const AuthProvider = ({ children }) => {
         signup,
         signin,
         logout,
-        isRegistered,
         isAuthenticated,
-        isAuthorized,
         successMessage,
         errorsMessage,
         loading,

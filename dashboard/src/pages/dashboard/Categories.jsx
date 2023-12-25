@@ -1,4 +1,4 @@
-import DashboardLayout from "./DashboardLayout.jsx";
+import DashboardLayout from "../../components/DashboardLayout.jsx";
 import { Table, Button, Label, TextInput, Select, Dropdown, Modal } from "flowbite-react";
 import { Toaster } from "react-hot-toast";
 import { HiOutlineExclamationCircle } from "react-icons/hi";

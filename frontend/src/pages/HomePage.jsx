@@ -1,15 +1,17 @@
-import Header from '../components/Header.jsx';
-import Footer from '../components/Footer.jsx';
-import Features from '../components/Features.jsx';
-import CategoriesNavbar from '../components/categories/CategoriesNavbar.jsx';
-import { useEffect } from 'react';
-import { useAuth } from '../context/AuthContext.jsx';
-import { Carousel } from 'flowbite-react';
+import Header from "../components/Header.jsx";
+import Footer from "../components/Footer.jsx";
+import Features from "../components/Features.jsx";
+import CategoriesNavbar from "../components/categories/CategoriesNavbar.jsx";
+import Main from "../components/Main.jsx";
+import NewProducts from "../components/NewProducts.jsx";
+import { useEffect } from "react";
+import { useAuth } from "../context/AuthContext.jsx";
+import { Carousel } from "flowbite-react";
 import { useUser } from "../context/UserContext.jsx";
 
 function HomePage() {
   useEffect(() => {
-    document.title = 'Hogarfy ¡Compra tus necesidades!';
+    document.title = "Hogarfy ¡Compra tus necesidades!";
   }, []);
 
   const { isAuthenticated } = useAuth();
@@ -23,7 +25,7 @@ function HomePage() {
   }, [isAuthenticated]);
 
   return (
-    <div className='bg-azul-palido'>
+    <div className="bg-azul-palido">
       <Header />
       <CategoriesNavbar />
       {isAuthenticated ? (
@@ -34,15 +36,22 @@ function HomePage() {
       <div className="w-full max-w-[1400px] my-0 mx-auto h-80 px-12 max-md:px-3">
         <Carousel>
           <img src="https://i.postimg.cc/RJN1j2GZ/imagen1.jpg" alt="..." />
-          <img src="https://flowbite.com/docs/images/carousel/carousel-2.svg" alt="..." />
-          <img src="https://flowbite.com/docs/images/carousel/carousel-3.svg" alt="..." />
+          <img
+            src="https://flowbite.com/docs/images/carousel/carousel-2.svg"
+            alt="..."
+          />
+          <img
+            src="https://flowbite.com/docs/images/carousel/carousel-3.svg"
+            alt="..."
+          />
           <img src="https://i.postimg.cc/NKh8zJXQ/imagen4.jpg" alt="..." />
         </Carousel>
       </div>
+      <NewProducts />
       <Features />
       <Footer />
     </div>
-  )
-};
+  );
+}
 
 export default HomePage;

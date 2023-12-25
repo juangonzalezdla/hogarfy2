@@ -7,8 +7,8 @@ import { ProtectedRoute, ProtectedRouteDashboard } from "./ProtectedRoutes.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import Dashboard from "./pages/dashboard/Dashboard.jsx";
 import Products from "./pages/dashboard/Products.jsx";
-import NewProduct from "./pages/dashboard/NewProduct.jsx";
-import EditProduct from "./pages/dashboard/EditProduct.jsx";
+import NewProduct from "./components/NewProduct.jsx";
+import EditProduct from "./components/EditProduct.jsx";
 import Categories from "./pages/dashboard/Categories.jsx";
 import Orders from "./pages/dashboard/Orders.jsx";
 
@@ -21,14 +21,14 @@ function App() {
             <Routes>
               <Route path="/auth/login" element={<LoginPage />} />
               <Route element={<ProtectedRoute />}>
-                <Route element={<ProtectedRouteDashboard />}>
+
                   <Route path="/" element={<Dashboard />} />
                   <Route path="/products" element={<Products />} />
                   <Route path="/products/new" element={<NewProduct />} />
                   <Route path="/products/edit/:id" element={<EditProduct />} />
                   <Route path="/categories" element={<Categories />} />
                   <Route path="/orders" element={<Orders />} />
-                </Route>
+
               </Route>
             </Routes>
           </BrowserRouter>

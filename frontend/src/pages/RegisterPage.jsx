@@ -1,52 +1,56 @@
-import BasicHeader from '../components/BasicHeader';
-import Main from '../components/form/Main';
-import FormContainer from '../components/form/FormContainer';
-import FormTitle from '../components/form/FormTitle';
-import Form from '../components/form/Form';
-import { Input } from '../components/form/Input';
-import MessageLink from '../components/form/MessageLink';
-import ErrorMessage from '../components/form/ErrorMessage';
-import SuccessMessage from '../components/form/SuccessMessage';
+import BasicHeader from "../components/BasicHeader.jsx";
+import Main from "../components/form/Main.jsx";
+import FormContainer from "../components/form/FormContainer.jsx";
+import FormTitle from "../components/form/FormTitle.jsx";
+import Form from "../components/form/Form.jsx";
+import { Input } from "../components/form/Input.jsx";
+import MessageLink from "../components/form/MessageLink.jsx";
+import ErrorMessage from "../components/form/ErrorMessage.jsx";
+import SuccessMessage from "../components/form/SuccessMessage.jsx";
 
-import { useForm } from 'react-hook-form';
-import { useAuth } from '../context/AuthContext.jsx';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { userRegisterSchema } from '../schemas/user.js';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from "react-hook-form";
+import { useAuth } from "../context/AuthContext.jsx";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { userRegisterSchema } from "../schemas/user.js";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const [goToLogin, setGoToLogin] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
   useEffect(() => {
-    document.title = 'Registrarse | Hogarfy';
+    document.title = "Registrarse | Hogarfy";
   }, []);
 
-  const { 
-    register, 
-    handleSubmit, 
-    formState: { errors } 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
   } = useForm({
-    resolver: zodResolver(userRegisterSchema)
+    resolver: zodResolver(userRegisterSchema),
   });
 
-  const { signup, successMessage, errorsMessage, isRegistered } = useAuth();
+  const { signup, successMessage, errorsMessage } = useAuth();
   const navigate = useNavigate();
 
-  const onSubmit = async (data) => await signup(data);
-  
+  const onSubmit = async (data) => {
+    await signup(data);
+    setGoToLogin(true);
+  };
+
   useEffect(() => {
-    if (isRegistered) {
+    if (goToLogin) {
       const timer = setTimeout(() => {
-        navigate('/auth/login');
+        navigate("/auth/login");
       }, 3000);
       return () => clearTimeout(timer);
     }
-  }, [isRegistered]);
+  }, [goToLogin]);
 
   return (
     <>
@@ -136,9 +140,9 @@ function RegisterPage() {
                   className="absolute right-4 top-2/3 transform -translate-y-1/2 bg-transparent border-none"
                 >
                   {showPassword ? (
-                    <i className='bx bxs-hide text-azul bx-sm'></i>
+                    <i className="bx bxs-hide text-azul bx-sm"></i>
                   ) : (
-                    <i className='bx bxs-show text-azul bx-sm'></i>
+                    <i className="bx bxs-show text-azul bx-sm"></i>
                   )}
                 </button>
               </div>
@@ -168,6 +172,6 @@ function RegisterPage() {
       </Main>
     </>
   );
-};
+}
 
 export default RegisterPage;

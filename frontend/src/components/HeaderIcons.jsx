@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 function HeaderIcons() {
-  const { isAuthenticated, isAuthorized, logout } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
   const { getUser, userData } = useUser();
   const [show, setShow] = useState(false);
 
@@ -14,10 +14,10 @@ function HeaderIcons() {
   };
 
   useEffect(() => {
-    if (isAuthenticated && isAuthorized) {
+    if (isAuthenticated) {
       getUser(); 
     }
-  }, [isAuthenticated, isAuthorized]);
+  }, [isAuthenticated]);
 
   return (
     <>
@@ -73,16 +73,7 @@ function HeaderIcons() {
             <i className="bx bx-cog text-2xl"></i>
             Mi cuenta
           </Link>
-          {isAuthorized && (
-            <Link 
-              to={'https://dashboard-hogarfy.onrender.com'}
-              target="_blank"
-              className="flex justify-start items-center gap-2 text-lg text-gris-oscuro font-medium p-2 rounded-lg hover:bg-gris-claro"
-            >
-              <i className="bx bxs-dashboard text-2xl"></i>
-              Dashboard
-            </Link>
-          )}
+          
           <hr />
           <Link
             to="/auth/login"

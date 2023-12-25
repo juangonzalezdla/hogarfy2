@@ -10,9 +10,9 @@ export const userProfile = async (req, res) => {
     if (!existingUserById) 
       return res.status(401).send({ message: ['Usuario no autorizado'] });
 
-    const { _id, cedula, name, lastName, address, phone, email, roles } = existingUserById;
+    const { _id, cedula, name, lastName, address, phone, email, isAdmin } = existingUserById;
 
-    return res.send({ _id, cedula, name, lastName, address, phone, email, roles }); 
+    return res.send({ _id, cedula, name, lastName, address, phone, email, isAdmin }); 
   } catch (error) { 
     return res.status(500).send({ message: error.message });
   }

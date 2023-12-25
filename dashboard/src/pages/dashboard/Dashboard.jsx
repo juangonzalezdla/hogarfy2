@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext.jsx';
-import DashboardLayout from './DashboardLayout.jsx';
+import DashboardLayout from '../../components/DashboardLayout.jsx';
 
 function Dashboard() {
   const { user } = useAuth();

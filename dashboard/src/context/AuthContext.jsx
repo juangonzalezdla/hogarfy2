@@ -13,7 +13,6 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isAuthorized, setIsAuthorized] = useState(false);
   const [errorsMessage, setErrorsMessage] = useState([]);
   const [successMessage, setSuccessMessage] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -59,12 +58,8 @@ export const AuthProvider = ({ children }) => {
 
       try {
         const res = await verifyTokenRequest(cookies.token);
-        console.log(res);
         if (!res.data) return setIsAuthenticated(false);
         setIsAuthenticated(true);
-        if (res.data.roles.admin === true) {
-          setIsAuthorized(true);
-        }
         setUser(res.data);
         setLoading(false);
       } catch (error) {
@@ -82,7 +77,6 @@ export const AuthProvider = ({ children }) => {
         signin,
         logout,
         isAuthenticated,
-        isAuthorized,
         successMessage,
         errorsMessage,
         loading,
