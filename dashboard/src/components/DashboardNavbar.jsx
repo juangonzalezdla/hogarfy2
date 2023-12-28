@@ -1,6 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "../context/AuthContext.jsx";
 
 function DashboardNavbar({ show }) {
+  const { logout } = useAuth();
   const inactiveLink = "";
   const activeLink = "flex items-center p-2 bg-gris-claro text-gris-oscuro rounded-lg hover:bg-gris-claro group";
   const location = useLocation();
@@ -62,6 +64,17 @@ function DashboardNavbar({ show }) {
           >
             <i className="bx bxs-detail text-2xl"></i>
             <span className="ml-2">Ordenes</span>
+          </Link>
+
+          <Link
+            to={"/auth/login"}
+            className="flex items-center p-2 text-red-700 rounded-lg hover:bg-red-100 group"
+            onClick={() => {
+              logout();
+            }}
+          >
+            <i className="bx bx-log-out text-2xl"></i>
+            <span className="ml-2">Salir</span>
           </Link>
         </div>
       </nav>
