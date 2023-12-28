@@ -11,6 +11,7 @@ function Categories() {
   const { categories, getCategories, createCategory, updateCategory, deleteCategory } = useCategory();
   const { register, handleSubmit, setValue, reset, control } = useForm();
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [categoryToDelete, setCategorytoDelete] = useState(null);
   const [showEditCategory, setShowEditCategory] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const { fields, append, remove } = useFieldArray({
@@ -31,10 +32,22 @@ function Categories() {
     setValue("properties", category.properties);
   };
 
+  const handleDeleteCategory = (category) => {
+    setCategorytoDelete(category);
+  };
+
   const onSubmit = async (data) => {
     data.properties.forEach((property) => {
-      property.values = property.values.split(",").map((value) => value.trim());
+      if (typeof property.values === 'string') {
+        property.values = property.values.split(",").map((value) => value.trim());
+      } else {
+        console.error("Invalid property.values:", property.values);
+      }
     });
+
+    if (data.parent === "") {
+      data.parent = null; 
+    }
 
     if (selectedCategory) {
       data._id = selectedCategory._id;
@@ -81,7 +94,7 @@ function Categories() {
             <div className="mb-2 block">
               <Label htmlFor="parent-category" value="Categoria padre" />
             </div>
-            <Select defaultValue="" {...register("parent")} required>
+            <Select defaultValue="" {...register("parent")}>
               <option value="">Elige categoria padre</option>
               {categories.map((category) => (
                 <option value={category._id} key={category._id}>
@@ -182,7 +195,7 @@ function Categories() {
                     <Dropdown.Divider />
                     <Dropdown.Item
                       onClick={() => {
-                        handleCategory(category);
+                        handleDeleteCategory(category);
                         setOpenModal(true);
                       }}
                       className="text-base text-red-700 font-medium rounded-md flex items-center gap-2"
@@ -214,7 +227,7 @@ function Categories() {
             <div className="flex justify-center gap-4">
               <Button
                 onClick={() => {
-                  deleteCategory(selectedCategory._id);
+                  deleteCategory(categoryToDelete._id);
                   setOpenModal(false);
                 }}
                 color="failure"

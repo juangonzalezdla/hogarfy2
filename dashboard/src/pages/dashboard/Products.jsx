@@ -7,6 +7,7 @@ import { useProduct } from "../../context/ProductContext.jsx";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import formatPrice from "../../utils/formatPrice.js"
 
 function Products() {
   const { products, getProducts, createProduct, deleteProduct } = useProduct();
@@ -78,7 +79,7 @@ function Products() {
               <Table.Cell className="font-medium text-gray-900">{product.name}</Table.Cell>
               <Table.Cell className="max-md:hidden">{product.brand}</Table.Cell>
               <Table.Cell className="max-md:hidden">{product?.category?.name}</Table.Cell>
-              <Table.Cell className="max-md:hidden">{product.price}</Table.Cell>
+              <Table.Cell className="max-md:hidden">{formatPrice(product.price)}</Table.Cell>
               <Table.Cell>
                 <Dropdown
                   renderTrigger={() => (
