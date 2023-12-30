@@ -130,6 +130,7 @@ function Categories() {
                 onClick={() => remove(index)}
                 type="button"
                 color="failure"
+                size="sm"
               >
                 Eliminar
               </Button>

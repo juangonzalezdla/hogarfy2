@@ -18,6 +18,8 @@ import SobreNosotros from "./pages/legal/SobreNosotros.jsx";
 import PreguntasFrecuentes from "./pages/legal/PreguntasFrecuentes.jsx";
 import TerminosCondiciones from "./pages/legal/TerminosCondiciones.jsx";
 import Privacidad from "./pages/legal/Privacidad.jsx";
+import ParentCategoryPage from "./components/categories/ParentCategoryPage.jsx";
+import ChildCategoryPage from "./components/categories/ChildCategoryPage.jsx";
 
 function App() {
   return (
@@ -36,6 +38,8 @@ function App() {
                 <Route path="/legal/preguntas-frecuentes/" element={<PreguntasFrecuentes />} />
                 <Route path="/legal/terminos-condiciones" element={<TerminosCondiciones />} />
                 <Route path="/legal/privacidad" element={<Privacidad />} />
+                <Route path="/c/:parentCategory" element={<ParentCategoryPage />} />
+                <Route path="/c/:parentCategory/:childCategory" element={<ChildCategoryPage />} />
                 <Route element={<ProtectedRoute />}>
                   <Route path="/u/account/:id" element={<AccountPage />} />
                   <Route path="/u/account/update-email/:id" element={<UpdateEmail />} />

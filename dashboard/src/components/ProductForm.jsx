@@ -182,6 +182,7 @@ function ProductForm() {
                   color="failure" 
                   type="button" 
                   onClick={() => remove(index)}
+                  size="sm"
                 >
                   Eliminar
                 </Button>

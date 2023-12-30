@@ -65,7 +65,7 @@ function DashboardNavbar({ show }) {
             <i className="bx bxs-detail text-2xl"></i>
             <span className="ml-2">Ordenes</span>
           </Link>
-
+          <hr />
           <Link
             to={"/auth/login"}
             className="flex items-center p-2 text-red-700 rounded-lg hover:bg-red-100 group"

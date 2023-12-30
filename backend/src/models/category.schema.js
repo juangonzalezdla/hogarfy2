@@ -5,7 +5,8 @@ const categorySchema = new Schema({
   properties: [{ type: Object }],
   parent: { 
     type: mongoose.Types.ObjectId, 
-    ref: 'Category' 
+    ref: 'Category',
+    default: null
   }
 });
 
