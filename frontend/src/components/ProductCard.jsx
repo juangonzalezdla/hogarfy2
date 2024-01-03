@@ -1,9 +1,5 @@
 import { Button, Tooltip } from "flowbite-react";
-import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useCart } from "../context/CartContext";
-
-
 
 function ProductCard({ _id, name, brand, images, price, url }) {
   function formatPrice(price) {
@@ -15,12 +11,6 @@ function ProductCard({ _id, name, brand, images, price, url }) {
   }
 
   const formattedPrice = formatPrice(price);
-
-  const { addToCart } = useCart();
-
-  const handleAddToCart = () => {
-    addToCart({ _id, name, brand, images, price, quantity: 1 });
-  };
 
   return (
     <div className="max-w-[250px] bg-white p-3 font-poppins rounded-md shadow-lg max-lg:px-4">
@@ -43,7 +33,7 @@ function ProductCard({ _id, name, brand, images, price, url }) {
 
         <div className="flex justify-between items-center gap-2 mt-5">
           <p className="text-negro text-md font-semibold">{formattedPrice}</p>
-          <Button onClick={handleAddToCart} size="sm" className="flex items-center justify-center">
+          <Button size="sm" className="flex items-center justify-center">
             Agregar
             <i className="bx bx-cart-add bx-sm"></i>
           </Button>

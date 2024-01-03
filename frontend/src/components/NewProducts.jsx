@@ -17,7 +17,7 @@ function NewProducts() {
   return (
     <Main>
       <h2 className="text-2xl font-roboto text-azul font-bold mb-10">
-        Nuevos productos
+        Los 20 productos más recientes
       </h2>
       <ProductGrid>
         {products.map((product) => {
