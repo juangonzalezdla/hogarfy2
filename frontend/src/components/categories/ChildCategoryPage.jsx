@@ -1,6 +1,7 @@
 import Header from "../Header.jsx";
 import { Breadcrumb } from "flowbite-react";
 import Main from "../Main.jsx";
+import ProductGrid from "../ProductGrid.jsx";
 import ProductCard from "../ProductCard.jsx";
 import Footer from "../Footer.jsx";
 
@@ -65,17 +66,21 @@ function ChildCategoryPage() {
         {filteredProducts.length === 0 ? (
           <p>Esta categoría aún no tiene productos.</p>
         ) : (
-          <section className="grid grid-cols-4 gap-5 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1">
+          <ProductGrid>
             {filteredProducts.map((product) => (
               <ProductCard
                 key={product._id}
+                url={`/c/${parentCategoryData?.name.toLowerCase()}/${childCategoryData?.name.toLowerCase().replace(/\s+/g, "-")}/product/${
+                  product._id
+                }`}
+                _id={product._id}
                 name={product.name}
                 brand={product.brand}
                 images={product.images}
                 price={product.price}
               />
             ))}
-          </section>
+          </ProductGrid>
         )}
       </Main>
       <Footer />

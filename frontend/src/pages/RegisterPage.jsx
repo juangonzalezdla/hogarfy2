@@ -97,7 +97,7 @@ function RegisterPage() {
 
               <Input
                 type="text"
-                placeholder="Direccion - ciudad"
+                placeholder="Dirección - Ciudad - Departamento"
                 {...register("address")}
               />
               {errors.address?.message && (

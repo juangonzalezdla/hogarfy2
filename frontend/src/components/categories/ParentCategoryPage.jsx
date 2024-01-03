@@ -22,8 +22,6 @@ function ParentCategoryPage() {
     (category) => category.parent && category.parent._id === parentCategoryData?._id
   );
 
-  const replaceSpacesWithDashes = (str) => str.replace(/\s+/g, "-");
-
   return (
     <>
       <Header />
@@ -47,9 +45,7 @@ function ParentCategoryPage() {
           {childCategories.map((childCategory) => (
             <Link
               key={childCategory._id}
-              to={`/c/${parentCategory.toLowerCase()}/${replaceSpacesWithDashes(
-                childCategory.name.toLowerCase()
-              )}`}
+              to={`/c/${parentCategory.toLowerCase()}/${childCategory.name.toLowerCase().replace(/\s+/g, "-")}`}
             >
               <article className="w-auto bg-white text-2xl text-azul font-bold px-10 py-20 rounded-xl shadow-md">
                 {childCategory.name}

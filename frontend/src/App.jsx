@@ -7,7 +7,6 @@ import { ProtectedRoute } from "./ProtectedRoutes.jsx";
 
 import HomePage from "./pages/HomePage.jsx";
 import OrdersPage from "./pages/OrdersPage.jsx";
-import CartPage from "./pages/CartPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
 import AccountPage from "./pages/account/AccountPage.jsx";
@@ -20,6 +19,7 @@ import TerminosCondiciones from "./pages/legal/TerminosCondiciones.jsx";
 import Privacidad from "./pages/legal/Privacidad.jsx";
 import ParentCategoryPage from "./components/categories/ParentCategoryPage.jsx";
 import ChildCategoryPage from "./components/categories/ChildCategoryPage.jsx";
+import ProductDetails from "./components/ProductDetails.jsx";
 
 function App() {
   return (
@@ -33,13 +33,13 @@ function App() {
                 <Route path="/auth/register" element={<RegisterPage />} />
                 <Route path="/auth/login" element={<LoginPage />} />
                 <Route path="/orders" element={<OrdersPage />} />
-                <Route path="/cart" element={<CartPage />} />
                 <Route path="/legal/sobre-nosotros/" element={<SobreNosotros />} />
                 <Route path="/legal/preguntas-frecuentes/" element={<PreguntasFrecuentes />} />
                 <Route path="/legal/terminos-condiciones" element={<TerminosCondiciones />} />
                 <Route path="/legal/privacidad" element={<Privacidad />} />
                 <Route path="/c/:parentCategory" element={<ParentCategoryPage />} />
                 <Route path="/c/:parentCategory/:childCategory" element={<ChildCategoryPage />} />
+                <Route path="/c/:parentCategory/:childCategory/product/:id" element={<ProductDetails />} />
                 <Route element={<ProtectedRoute />}>
                   <Route path="/u/account/:id" element={<AccountPage />} />
                   <Route path="/u/account/update-email/:id" element={<UpdateEmail />} />

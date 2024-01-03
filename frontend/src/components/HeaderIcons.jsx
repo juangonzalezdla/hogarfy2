@@ -51,11 +51,11 @@ function HeaderIcons() {
           </>
         )}
 
-        <IconLink to="/orders">
+        <IconLink>
           <i className="bx bx-package text-3xl font-medium py-1 px-2 hover:bg-gris-claro rounded-full"></i>
         </IconLink>
 
-        <IconLink to="/cart">
+        <IconLink>
           <i className="bx bx-cart text-3xl font-medium py-1 px-2 hover:bg-gris-claro rounded-full"></i>
         </IconLink>
       </div>

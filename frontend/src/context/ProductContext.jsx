@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import {
   createProductRequest,
   getProductsRequest,
+  getRecentProductsRequest,
   getProductRequest,
   updateProductRequest,
   deleteProductRequest,
@@ -24,6 +25,15 @@ export const ProductProvider = ({ children }) => {
   const getProducts = async () => {
     try {
       const res = await getProductsRequest();
+      setProducts(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getRecentProducts = async () => {
+    try {
+      const res = await getRecentProductsRequest();
       setProducts(res.data);
     } catch (error) {
       console.log(error);
@@ -79,6 +89,7 @@ export const ProductProvider = ({ children }) => {
       value={{
         products,
         getProducts,
+        getRecentProducts,
         productData,
         getProduct,
         createProduct,

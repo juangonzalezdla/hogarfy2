@@ -206,7 +206,7 @@ function ProductForm() {
               id="description"
               placeholder="Descripcion del producto..."
               type="text"
-              maxLength="400"
+              maxLength="800"
               rows={5}
               className="resize-none"
               {...register("description")}

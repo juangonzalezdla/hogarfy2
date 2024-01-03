@@ -1,8 +1,8 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import { CategoryProvider } from "./context/CategoryContext.jsx";
 import { ProductProvider } from "./context/ProductContext.jsx";
-import { ProtectedRoute, ProtectedRouteDashboard } from "./ProtectedRoutes.jsx";
+import { ProtectedRoute } from "./ProtectedRoutes.jsx";
 
 import LoginPage from "./pages/LoginPage.jsx";
 import Dashboard from "./pages/dashboard/Dashboard.jsx";
@@ -10,7 +10,6 @@ import Products from "./pages/dashboard/Products.jsx";
 import NewProduct from "./components/NewProduct.jsx";
 import EditProduct from "./components/EditProduct.jsx";
 import Categories from "./pages/dashboard/Categories.jsx";
-import Orders from "./pages/dashboard/Orders.jsx";
 
 function App() {
   return (
@@ -21,14 +20,11 @@ function App() {
             <Routes>
               <Route path="/auth/login" element={<LoginPage />} />
               <Route element={<ProtectedRoute />}>
-
-                  <Route path="/" element={<Dashboard />} />
-                  <Route path="/products" element={<Products />} />
-                  <Route path="/products/new" element={<NewProduct />} />
-                  <Route path="/products/edit/:id" element={<EditProduct />} />
-                  <Route path="/categories" element={<Categories />} />
-                  <Route path="/orders" element={<Orders />} />
-
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/products" element={<Products />} />
+                <Route path="/products/new" element={<NewProduct />} />
+                <Route path="/products/edit/:id" element={<EditProduct />} />
+                <Route path="/categories" element={<Categories />} />
               </Route>
             </Routes>
           </BrowserRouter>

@@ -53,18 +53,6 @@ function DashboardNavbar({ show }) {
             <i className="bx bxs-category text-2xl"></i>
             <span className="ml-2">Categorias</span>
           </Link>
-
-          <Link
-            to={"/orders"}
-            className={
-              pathname === "/orders"
-                ? activeLink
-                : inactiveLink + " flex items-center p-2 text-gris-oscuro rounded-lg hover:bg-gris-claro group"
-            }
-          >
-            <i className="bx bxs-detail text-2xl"></i>
-            <span className="ml-2">Ordenes</span>
-          </Link>
           <hr />
           <Link
             to={"/auth/login"}

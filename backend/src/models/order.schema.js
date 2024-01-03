@@ -8,6 +8,8 @@ const orderSchema = new Schema({
   city: { type: String },
   streetAddress: { type: String },
   paid: { type: Boolean },
+}, {
+  timestamps: true
 });
 
 const OrderModel = model('Order', orderSchema);

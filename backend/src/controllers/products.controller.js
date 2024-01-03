@@ -31,6 +31,15 @@ export const getProducts = async (req, res) => {
   }
 };
 
+export const getRecentProducts = async (req, res) => {
+  try {
+    const recentProducts = await ProductModel.find({}, null, {sort: {'_id': -1}, limit: 20}).populate('category');
+    return res.status(200).json(recentProducts);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
 export const getProductById = async (req, res) => {
   try {
     const product = await ProductModel.findById(req.params.id).populate('category');

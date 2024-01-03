@@ -22,6 +22,7 @@ export const deleteCategoryRequest = async (id) => categoryAxios.delete(`/delete
 // Products
 export const createProductRequest = async (product) => productAxios.post('/create-product', product);
 export const getProductsRequest = async () => productAxios.get('/get-products');
+export const getRecentProductsRequest = async () => productAxios.get('/recent-products');
 export const getProductRequest = async (id) => productAxios.get(`/get-product/${id}`);
 export const updateProductRequest = async (product) => productAxios.put(`/update-product/${product._id}`, product);
 export const deleteProductRequest = async (id) => productAxios.delete(`/delete-product/${id}`);
